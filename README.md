@@ -100,3 +100,95 @@ cd backend
 python audit_all_phases.py
 ```
 This tests CLIP, YOLOv8, EasyOCR, Material Classifier, Carbon LCA model, XGBoost resale valuation, Sentence-BERT NGO matcher, and Gemini 3.8 Flash synthesis.
+
+---
+
+## 🚢 Deployment
+
+### Local Production (Windows/Linux/macOS)
+```bash
+cd backend
+# Create virtual environment
+python -m venv venv
+venv\Scripts\activate        # Windows
+source venv/bin/activate     # Linux/macOS
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Set production env vars (in backend/.env)
+FLASK_ENV=production
+FLASK_DEBUG=False
+FLASK_RELOAD=False
+AUTO_OPEN_BROWSER=false
+
+# Run with a production WSGI server
+# Option A: waitress (Windows-friendly)
+pip install waitress
+waitress-serve --host=0.0.0.0 --port=5000 app:app
+
+# Option B: gunicorn (Linux/macOS)
+gunicorn --bind 0.0.0.0:5000 --workers 4 --threads 2 app:app
+```
+
+### Docker Deployment
+```dockerfile
+# Dockerfile (create at project root)
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# System deps for ML libs
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgl1-mesa-glx libglib2.0-0 && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY backend/requirements.txt ./backend/
+RUN pip install --no-cache-dir -r backend/requirements.txt
+
+COPY . .
+
+# Don't copy .env - mount at runtime
+ENV FLASK_ENV=production
+ENV FLASK_DEBUG=False
+ENV PORT=5000
+
+EXPOSE 5000
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "4", "--threads", "2", "app:app"]
+```
+
+```bash
+# Build & run (with .env mounted)
+docker build -t ecocircle .
+docker run -d -p 5000:5000 --name ecocircle \
+  -v $(pwd)/backend/.env:/app/backend/.env:ro \
+  ecocircle
+```
+
+### Cloud Deployment (Render / Railway / Fly.io)
+1. **Repository:** Push to GitHub (already done)
+2. **Build command:** `pip install -r backend/requirements.txt`
+3. **Start command:** `gunicorn --bind 0.0.0.0:$PORT --workers 4 --threads 2 app:app`
+4. **Environment variables** (set in platform dashboard):
+   - `SECRET_KEY` = random 32+ char string
+   - `GEMINI_API_KEY` = your Google AI Studio key
+   - `GEMINI_MODEL` = `gemini-3.8-flash`
+   - `LOCATIONIQ_API_KEY` = (optional) your LocationIQ key
+   - `CARBON_API_KEY` = (optional) your Carbon Interface key
+   - `FLASK_ENV` = `production`
+   - `FLASK_DEBUG` = `false`
+   - `PORT` = provided by platform
+
+### Persistence Notes
+- **SQLite** (`backend/instance/circular_economy.db`) is file-based — use a **persistent volume** on cloud platforms
+- **ML artifacts** (`backend/ml/artifacts/*.pkl`) are committed and read-only
+- **Uploads** (`backend/uploads/`) need persistent storage for user images
+
+### Health Check
+```bash
+curl https://your-domain.com/api/health
+# → {"message":"EcoCircle API running 🌿","status":"ok"}
+
+curl https://your-domain.com/api/ai/models/health
+# → {"phase1_available": true, "models": {...}, "warmup": {...}}
+```
