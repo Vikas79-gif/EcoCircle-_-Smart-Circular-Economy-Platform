@@ -226,7 +226,6 @@ Open your browser at: **http://localhost:5000/**
 > - `screenshots/02_login_page.png` — Login/Register with Face Unlock
 > - `screenshots/03_dashboard.png` — Dashboard with stats, leaderboard, eco-trend
 > - `screenshots/04_ai_engine.png` — AI Vision Analysis page
-> - `screenshots/05_my_items.png` — My Items/Products inventory page
 
 ---
 
