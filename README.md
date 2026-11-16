@@ -218,6 +218,20 @@ Open your browser at: **http://localhost:5000/**
 
 ---
 
+## 📸 Screenshots
+
+| Page | Preview |
+|------|---------|
+| **Landing Page** — 3D interactive globe with circular economy stats | ![Landing Page](screenshots/01_landing_page.png) |
+| **Login / Register** — Email/password + Face Unlock (128-dim descriptor) | ![Login Page](screenshots/02_login_page.png) |
+| **Dashboard** — Eco Score, Carbon Saved, Leaderboard, Eco-Trend forecast, Activity Feed | ![Dashboard](screenshots/03_dashboard.png) |
+| **AI Vision Analysis** — Upload photo → 4-phase pipeline → sustainability report | ![AI Engine](screenshots/04_ai_engine.png) |
+| **My Items** — Personal inventory with lifecycle stages & AI analysis | ![My Items](screenshots/05_my_items.png) |
+
+> **To regenerate screenshots:** Run `python screenshots/capture_screenshots.py` while the server is running on `localhost:5000`.
+
+---
+
 ## 🧪 Testing the ML Pipeline
 To verify all 4 phases of the AI/ML pipeline:
 ```bash
