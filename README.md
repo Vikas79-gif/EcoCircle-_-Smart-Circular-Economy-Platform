@@ -317,3 +317,48 @@ curl https://your-domain.com/api/health
 curl https://your-domain.com/api/ai/models/health
 # → {"phase1_available": true, "models": {...}, "warmup": {...}}
 ```
+
+---
+
+## 🔮 Future Scope
+
+### AI/ML Enhancements
+- **Video Analysis:** Extend Phase 1 to process video uploads (frame sampling + temporal damage tracking)
+- **Fine-tuned CLIP:** Domain-adapt CLIP on circular-economy product images for higher category accuracy
+- **Damage Segmentation:** Replace YOLOv8 bounding boxes with instance segmentation (Mask R-CNN / SAM) for pixel-level damage masks
+- **Multi-modal Embeddings:** Joint image+text embeddings (ImageBind / CLIP) for richer Phase 3 NGO matching
+- **Carbon Model v2:** Incorporate regional grid emission factors, transport distance, end-of-life scenarios
+- **Resale Time-to-Sell:** Predict not just price but expected days-on-market using survival analysis
+- **Anomaly Detection:** Flag suspicious listings (stolen goods, misrepresented condition) via isolation forests
+
+### Platform Features
+- **Mobile App:** React Native / Flutter wrapper with offline-first sync (camera + local Phase 1 inference via ONNX)
+- **Community Verification:** Peer-review system for donations/resale — users vouch for condition authenticity
+- **Circular Credits:** Tokenized eco-credits (ERC-20 on Polygon) redeemable for discounts, NGO donations, or carbon offsets
+- **B2B Marketplace:** Bulk listing API for repair shops, recyclers, refurbishers to source inventory
+- **ESG Reporting:** Admin dashboard with org-level carbon avoidance, waste diversion, circularity metrics
+- **AR Try-Before-Buy:** WebXR viewer for furniture/clothing — place items in your space via phone camera
+
+### Infrastructure & Scale
+- **PostgreSQL + PostGIS:** Replace SQLite for production multi-user concurrency + geospatial queries
+- **Redis Cache:** Cache Phase 1–3 results by image hash (perceptual hash) for instant repeat analyses
+- **Message Queue (Celery + Redis/RabbitMQ):** Offload heavy ML inference to worker pool; WebSocket progress updates
+- **Model Serving (Triton / TorchServe / BentoML):** Dedicated inference endpoints with batching, GPU autoscaling
+- **Vector DB (Qdrant / Pinecone / pgvector):** Semantic search over NGO descriptions, product embeddings
+- **Observability:** OpenTelemetry traces, Prometheus metrics, Grafana dashboards for latency/error rates
+
+### Data & Partnerships
+- **Open Product Database:** Crowdsource verified brand/model/weight/specs — improve OCR + valuation accuracy
+- **NGO API Integration:** Real-time capacity APIs (Goonj, etc.) — auto-match only when NGO has space
+- **Logistics Partnerships:** Integrate Delhivery/Shadowfax/India Post APIs for pickup scheduling + carbon accounting
+- **Government Schemes:** Link to EPR (Extended Producer Responsibility) portals, Swachh Bharat credits
+
+### Research Directions
+- **Life-Cycle Assessment (LCA) Automation:** Auto-generate ISO 14040-compliant LCA reports from product data
+- **Circular Design Assistant:** Generative AI (Gemini/Stable Diffusion) suggests redesign for repairability/recyclability
+- **Behavioral Nudges:** A/B test gamification (streaks, badges, social comparison) on long-term circular habits
+- **Policy Simulation:** Agent-based model of city-wide circular flows — optimize collection routes, facility placement
+
+---
+
+*Contributions welcome! Open an issue or PR to discuss any of these directions.*
