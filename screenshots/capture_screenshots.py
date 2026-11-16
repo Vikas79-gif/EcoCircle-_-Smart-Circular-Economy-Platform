@@ -20,6 +20,11 @@ PAGES = [
     ("/dashboard.html", "03_dashboard.png", "User Dashboard with stats & leaderboard"),
     ("/ai-engine.html", "04_ai_engine.png", "AI Vision Analysis page"),
     ("/products.html", "05_my_items.png", "My Items (Products) page"),
+    ("/donate.html", "06_donate.png", "Donate page with NGO listings"),
+    ("/marketplace.html", "07_marketplace.png", "Marketplace for resale listings"),
+    ("/repair.html", "08_repair.png", "Repair centers finder"),
+    ("/recycling.html", "09_recycling.png", "Recycling centers finder"),
+    ("/map.html", "10_map.png", "Map view with all locations"),
 ]
 
 async def capture_page(page, url, filename, description):

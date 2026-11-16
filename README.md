@@ -220,12 +220,20 @@ Open your browser at: **http://localhost:5000/**
 
 ## 📸 Screenshots
 
-> **Note:** Screenshots to be added manually. Placeholder filenames:
->
-> - `screenshots/01_landing_page.png` — Landing Page with 3D interactive globe
-> - `screenshots/02_login_page.png` — Login/Register with Face Unlock
-> - `screenshots/03_dashboard.png` — Dashboard with stats, leaderboard, eco-trend
-> - `screenshots/04_ai_engine.png` — AI Vision Analysis page
+| Page | Preview |
+|------|---------|
+| **Landing Page** — 3D interactive globe with circular economy stats | ![Landing Page](screenshots/01_landing_page.png) |
+| **Login / Register** — Email/password + Face Unlock (128-dim descriptor) | ![Login Page](screenshots/02_login_page.png) |
+| **Dashboard** — Eco Score, Carbon Saved, Leaderboard, Eco-Trend forecast, Activity Feed | ![Dashboard](screenshots/03_dashboard.png) |
+| **AI Vision Analysis** — Upload photo → 4-phase pipeline → sustainability report | ![AI Engine](screenshots/04_ai_engine.png) |
+| **My Items** — Personal inventory with lifecycle stages & AI analysis | ![My Items](screenshots/05_my_items.png) |
+| **Donate** — Browse verified NGOs, filter by category/location | ![Donate](screenshots/06_donate.png) |
+| **Marketplace** — List items for resale, browse listings, contact sellers | ![Marketplace](screenshots/07_marketplace.png) |
+| **Repair** — Find nearby repair shops, book & track repairs | ![Repair](screenshots/08_repair.png) |
+| **Recycling** — Find recycling centers, generate certificates | ![Recycling](screenshots/09_recycling.png) |
+| **Map View** — Leaflet.js + OpenStreetMap with all location markers | ![Map](screenshots/10_map.png) |
+
+> **To regenerate screenshots:** Run `python screenshots/capture_screenshots.py` while the server is running on `localhost:5000`.
 
 ---
 
