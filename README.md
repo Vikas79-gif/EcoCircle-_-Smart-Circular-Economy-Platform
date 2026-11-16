@@ -228,9 +228,9 @@ Open your browser at: **http://localhost:5000/**
 | **AI Vision Analysis** — Upload photo → 4-phase pipeline → sustainability report | ![AI Engine](screenshots/04_ai_engine.png) |
 | **My Items** — Personal inventory with lifecycle stages & AI analysis | ![My Items](screenshots/05_my_items.png) |
 | **Donate** — Browse verified NGOs, filter by category/location | ![Donate](screenshots/06_donate.png) |
-| **Repair** — Find nearby repair shops, book & track repairs | ![Repair](screenshots/08_repair.png) |
-| **Recycling** — Find recycling centers, generate certificates | ![Recycling](screenshots/09_recycling.png) |
-| **Map View** — Leaflet.js + OpenStreetMap with all location markers | ![Map](screenshots/10_map.png) |
+| **Repair** — Find nearby repair shops, book & track repairs | ![Repair](screenshots/07_repair.png) |
+| **Recycling** — Find recycling centers, generate certificates | ![Recycling](screenshots/08_recycling.png) |
+| **Map View** — Leaflet.js + OpenStreetMap with all location markers | ![Map](screenshots/09_map.png) |
 
 > **To regenerate screenshots:** Run `python screenshots/capture_screenshots.py` while the server is running on `localhost:5000`.
 
