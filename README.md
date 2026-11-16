@@ -222,39 +222,39 @@ Open your browser at: **http://localhost:5000/**
 
 ### 1. Landing Page
 3D interactive globe with circular economy stats  
-![Landing Page](screenshots/01_landing_page.png)
+<img src="screenshots/01_landing_page.png" width="700" alt="Landing Page">
 
 ### 2. Login / Register
 Email/password + Face Unlock (128-dim descriptor)  
-![Login Page](screenshots/02_login_page.png)
+<img src="screenshots/02_login_page.png" width="700" alt="Login Page">
 
 ### 3. Dashboard
 Eco Score, Carbon Saved, Leaderboard, Eco-Trend forecast, Activity Feed  
-![Dashboard](screenshots/03_dashboard.png)
+<img src="screenshots/03_dashboard.png" width="700" alt="Dashboard">
 
 ### 4. AI Vision Analysis
 Upload photo → 4-phase pipeline → sustainability report  
-![AI Engine](screenshots/04_ai_engine.png)
+<img src="screenshots/04_ai_engine.png" width="700" alt="AI Engine">
 
 ### 5. My Items
 Personal inventory with lifecycle stages & AI analysis  
-![My Items](screenshots/05_my_items.png)
+<img src="screenshots/05_my_items.png" width="700" alt="My Items">
 
 ### 6. Donate
 Browse verified NGOs, filter by category/location  
-![Donate](screenshots/06_donate.png)
+<img src="screenshots/06_donate.png" width="700" alt="Donate">
 
 ### 7. Repair
 Find nearby repair shops, book & track repairs  
-![Repair](screenshots/07_repair.png)
+<img src="screenshots/07_repair.png" width="700" alt="Repair">
 
 ### 8. Recycling
 Find recycling centers, generate certificates  
-![Recycling](screenshots/08_recycling.png)
+<img src="screenshots/08_recycling.png" width="700" alt="Recycling">
 
 ### 9. Map View
 Leaflet.js + OpenStreetMap with all location markers  
-![Map](screenshots/09_map.png)
+<img src="screenshots/09_map.png" width="700" alt="Map">
 
 > **To regenerate screenshots:** Run `python screenshots/capture_screenshots.py` while the server is running on `localhost:5000`.
 
