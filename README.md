@@ -228,7 +228,6 @@ Open your browser at: **http://localhost:5000/**
 | **AI Vision Analysis** — Upload photo → 4-phase pipeline → sustainability report | ![AI Engine](screenshots/04_ai_engine.png) |
 | **My Items** — Personal inventory with lifecycle stages & AI analysis | ![My Items](screenshots/05_my_items.png) |
 | **Donate** — Browse verified NGOs, filter by category/location | ![Donate](screenshots/06_donate.png) |
-| **Marketplace** — List items for resale, browse listings, contact sellers | ![Marketplace](screenshots/07_marketplace.png) |
 | **Repair** — Find nearby repair shops, book & track repairs | ![Repair](screenshots/08_repair.png) |
 | **Recycling** — Find recycling centers, generate certificates | ![Recycling](screenshots/09_recycling.png) |
 | **Map View** — Leaflet.js + OpenStreetMap with all location markers | ![Map](screenshots/10_map.png) |
