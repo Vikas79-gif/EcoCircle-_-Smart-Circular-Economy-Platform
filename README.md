@@ -15,6 +15,131 @@ Full-stack, AI-driven circular economy platform to buy, sell, repair, reuse, don
 
 ---
 
+## 🧠 How It Works — 4-Phase AI Pipeline
+
+EcoCircle analyzes every product through a **4-phase multimodal AI pipeline** that runs locally (Phase 1–3) + cloud (Phase 4). Here's the flow:
+
+### Phase 1 — Vision Detection (Local Models)
+When you upload a photo (or describe an item), four models run in parallel:
+
+| Model | Purpose | Output |
+|-------|---------|--------|
+| **CLIP Category Classifier** (M1) | Zero-shot product categorization | `electronics`, `clothing`, `furniture`, `mobile`, `laptop`, `appliance`, `vehicle`, `books`, `sports`, `other` |
+| **YOLOv8 Damage Detector** (M2) | Detects cracks, dents, wear, missing parts | `damage_severity: minimal|moderate|severe`, bounding boxes, confidence |
+| **EasyOCR Text Extractor** (M3) | Reads brand, model numbers, labels from image | Extracted text → brand/model identification |
+| **CLIP Material Classifier** (M4) | Zero-shot material/fabric detection | `plastic`, `metal`, `glass`, `wood`, `cotton`, `polyester`, `leather`, `ceramic`, `composite`, `other` |
+
+**Result:** Structured product fingerprint — category, material, damage level, brand — without any cloud call.
+
+---
+
+### Phase 2 — Scoring & Valuation (Local ML Models)
+Uses the Phase 1 outputs + user inputs (weight, age, condition, purchase price) to compute:
+
+| Model | Input | Output |
+|-------|-------|--------|
+| **Carbon Estimator** (M5) | category, material, weight, condition, action (reuse/recycle/repair) | `carbon_saved_kg` (LCA + GBR), emission factor, trees/car equivalents, citation |
+| **Resale Valuation** (M6) | category, brand, age, condition, original price | `estimated_resale_inr`, confidence interval, depreciation % |
+| **Eco-Trend Predictor** (M7) | user's history, category diversity, activity streak | 30-day forecast, trend direction, top driver |
+
+---
+
+### Phase 3 — NGO Semantic Matcher (Local)
+When you choose **Donate**, Sentence-BERT embeddings match your item's description against a curated NGO database:
+
+- **Model:** `all-MiniLM-L6-v2` (384-dim embeddings)
+- **Database:** 15+ verified Indian NGOs (Goonj, TechForAll India, Clothes Box Foundation, etc.)
+- **Output:** Top 3 NGOs with semantic similarity scores, contact info, accepted categories
+
+---
+
+### Phase 4 — Gemini Multimodal Synthesis (Cloud)
+All structured data from Phases 1–3 is sent to **Google Gemini 3.8 Flash** with a system prompt to produce a human-readable report:
+
+```json
+{
+  "eco_score_reason": "2-3 sentences explaining sustainability score...",
+  "repair_tips": "3 numbered steps with INR cost estimates (if Repair) or 'N/A'",
+  "recommendation_text": "Plain-language recommendation mentioning resale price / carbon saving",
+  "eco_insight": "One surprising environmental fact with a number"
+}
+```
+
+This synthesis is what the user sees on the **AI Engine** page — natural language, not raw numbers.
+
+---
+
+## 📱 User Journey — Step-by-Step Procedure
+
+### 1. **Landing Page** (`/`)
+- 3D interactive globe (React + Three.js) showing global circular economy stats
+- Click **"Get Started"** → redirects to login
+
+### 2. **Authentication** (`/login.html`)
+- **Register:** Name, email, password + optional **face descriptor** (128-dim vector from browser Face-API.js)
+- **Login:** Email/password **or** Face Unlock (Euclidean distance < 0.6 match)
+- JWT token stored in `localStorage`, auto-attached to all API calls
+
+### 3. **Dashboard** (`/dashboard.html`)
+- **Stats cards:** Eco Score, Carbon Saved (kg), Items Donated/Sold, Login Streak, Badge
+- **Leaderboard:** Top 10 users by Eco Score
+- **Eco-Trend Chart:** 30-day forecast from XGBoost model (M7)
+- **Activity Feed:** Real-time via Socket.IO (new donations, sales, repairs)
+- **Quick Actions:** Analyze Item, Donate, Sell, Repair, Recycle
+
+### 4. **AI Vision Analysis** (`/ai-engine.html`)
+**The core feature — upload a photo, get full sustainability report:**
+
+1. Click **"Upload Photo"** or drag-drop an image
+2. (Optional) Add description: *"3-year-old Dell laptop, screen has minor scratch, battery lasts 2hrs, paid ₹50,000"*
+3. Fill/confirm: Category, Material, Condition, Weight (kg), Age (years), Purchase Price
+4. Click **"Analyze"** → shows loading spinner while pipeline runs:
+   - Phase 1: CLIP + YOLOv8 + OCR + Material CLIP (~2-5s)
+   - Phase 2: Carbon + Resale + Eco-Trend (<1s)
+   - Phase 3: NGO match (if donation relevant) (<1s)
+   - Phase 4: Gemini synthesis (~3-8s)
+5. **Results displayed:**
+   - **Category & Material** (with confidence)
+   - **Damage Assessment** (severity + visual summary)
+   - **Carbon Impact** (kg CO₂ saved by reuse/recycle)
+   - **Resale Estimate** (₹ range + depreciation %)
+   - **Recommendation** (Repair / Resell / Donate / Recycle / Keep Using)
+   - **Gemini Synthesis** (natural-language report with eco_insight, repair_tips)
+   - **Nearby Facility Hint** (e-waste recycler, donation center, repair shop)
+
+### 5. **My Items** (`/products.html`)
+- CRUD for your personal inventory
+- Each item shows: lifecycle stage (In Use → Listed → Donated/Sold/Recycled/Repaired), AI analysis attached
+- Actions: **Edit**, **Analyze** (re-run AI), **Donate**, **Sell**, **Repair**, **Recycle**, **Delete**
+
+### 6. **Donate** (`/donate.html`)
+- Browse verified NGOs (from Phase 3 database)
+- Filter by category, location
+- Click **"Donate to this NGO"** → creates donation record, updates dashboard stats, notifies NGO (simulated)
+
+### 7. **Marketplace** (`/marketplace.html`)
+- List items for resale (uses M6 valuation as suggested price)
+- Browse other users' listings
+- Contact seller via in-app messaging (simulated)
+
+### 8. **Repair & Recycling** (`/repair.html`, `/recycling.html`)
+- Find nearby repair shops / recycling centers (LocationIQ geocoding if API key set)
+- Book repair, track status
+- Recycling: generates certificate with carbon saved
+
+### 9. **Map View** (`/map.html`)
+- Leaflet.js + OpenStreetMap
+- Markers: NGOs, Repair shops, Recycling centers, User listings
+- Click marker → details + directions
+
+### 10. **Profile & Settings** (`/profile.html`)
+- Edit name, location, avatar
+- Toggle **Face Unlock** on/off
+- View badge progression (Newcomer → Eco Warrior → Circular Champion)
+- Download personal impact report (PDF)
+
+---
+
 ## 📁 Project Structure
 ```
 smart-circular-economy/
